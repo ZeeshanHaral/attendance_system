@@ -6,41 +6,42 @@
 <div class="main_content">
 
     <div class="login-form-here">
-        <form>
+        <form action="{{ route('students.store') }}" method="POST">
+            @csrf
             <h3 class="sec_head">Add Student</h3>
             <div class="row">
                 <!-- Email input -->
                 <div class="col-lg-6 col-sm-12">
                     <label class="form-label" for="student_name">Student Name</label>
-                    <input type="text" id="student_name" class="form-control" />
+                    <input type="text" name="student_name" id="student_name" class="form-control" required />
                     
                 </div>
                 <!-- Email input -->
                 <div class="col-lg-6 col-sm-12">
                     <label class="form-label" for="email">Email</label>
-                    <input type="email" id="email" class="form-control" />
+                    <input type="email" name="email" id="email" class="form-control" required />
                 </div>
                 <!-- Password input -->
                 <div class="col-lg-6 col-sm-12">
                     <label class="form-label" for="formpassword">Password</label>
-                    <input type="password" id="formpassword" class="form-control" />
+                    <input type="password" name="formpassword" id="formpassword" class="form-control" required />
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <label class="form-label" for="Semester">Semester</label>
-                    <select class="form-control" id="Semester">
-                        <option>1st</option>
-                        <option>2nd</option>
-                        <option>3rd</option>
-                        <option>4th</option>
-                        <option>5th</option>
-                        <option>6th</option>
-                        <option>7th</option>
-                        <option>8th</option>
+                    <select class="form-control" name="Semester" id="Semester" required>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
                     </select>
                 </div>
                 <!-- Submit button -->
                 <div class="col-lg-12 col-sm-12">
-                    <button type="button" class="btn btn-primary btn-block mb-4">Add Student</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-4">Add Student</button>
                 </div>
             </div>
         </form>
@@ -53,52 +54,29 @@
             <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Email</th>
+            <th scope="col">Email</th> 
             <th scope="col">Samester</th>
             <th scope="col">action</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Student name</td>
-                <td>student@gmail.com</td>
-                <td>5th</td>
-                <td>
-                    <button type="button" onclick=""><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    <button type="button" onclick=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Student name</td>
-                <td>student@gmail.com</td>
-                <td>5th</td>
-                <td>
-                    <button type="button" onclick=""><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    <button type="button" onclick=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Student name</td>
-                <td>student@gmail.com</td>
-                <td>5th</td>
-                <td>
-                    <button type="button" onclick=""><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    <button type="button" onclick=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">4</th>
-                <td>Student name</td>
-                <td>student@gmail.com</td>
-                <td>5th</td>
-                <td>
-                    <button type="button" onclick=""><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    <button type="button" onclick=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                </td>
-            </tr>
+            @foreach($students as $student)
+                <tr>
+                    <th scope="row">{{$loop->iteration}}</th>
+                    <td>{{$student->StudentName}}</td>
+                    <td>{{$student->email}}</td> 
+                    <td>{{$student->Semester}}</td>
+                    <td>
+                        <a href="{{ route('student.destroy', $student->StudentID) }}" title="Delete" class="red">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                        <a href="{{route('admin_studentEdit')}}?student_id={{$student->StudentID}}" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a href="{{ route('admin_attendance', ['id' => $student->StudentID]) }}" title="View Attendance">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

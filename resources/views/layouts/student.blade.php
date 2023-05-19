@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="../assets/style.css?v=87">
+        <link rel="stylesheet" href="{{asset('/')}}assets/style.css?v=87">
     
     </head>
     <body>
@@ -22,10 +22,24 @@
     <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i></button>
     <ul class="navbar-nav2 ml-auto">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome <span class="theme_text">[Student]</span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome <span class="theme_text">[
+            <?php 
+              $studentID = Auth::id();
+              $students = DB::table('students')
+                    ->where('StudentID', Auth::id())
+                    ->value('StudentName');
+            ?>  
+            
+            {{$students}}
+            ]</span></a>
             <ul class="dropdown-menu">
                 <li class="divider"></li>
-                <li class="resflset"><a href="login.php"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+                <li class="resflset">
+                  <form action="{{ route('logout.student') }}" method="POST">
+                      @csrf
+                      <button class="btn btn-primary nav-link " style="color:#fff !important;" type="submit"><i class="fa fa-fw fa-power-off"></i> Logout</button>
+                  </form>
+                </li>
             </ul>
         </li>
       </ul>
@@ -68,6 +82,11 @@
 
                 <div class="col-lg-10 col-sm-12 p-0">
 
+                @if (session('status'))
+                      <div class="alert alert-success mt-5">
+                          {{ session('status') }}
+                      </div>
+                  @endif
 
 
 

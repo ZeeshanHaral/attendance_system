@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="../assets/style.css?v=8676">
+        <link rel="stylesheet" href="{{asset('/')}}assets/style.css?v=8676">
     
     </head>
     <body>
@@ -18,7 +18,14 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome <span class="theme_text">[Admin]</span></a>
             <ul class="dropdown-menu">
                 <li class="divider"></li>
-                <li class="resflset"><a href="login.php"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+                <li class="resflset">
+
+                  <form action="{{ route('logout.admin') }}" method="POST">
+                      @csrf
+                      <button class="btn btn-primary nav-link " style="color:#fff !important;" type="submit"><i class="fa fa-fw fa-power-off"></i> Logout</button>
+                  </form>
+
+                </li>
             </ul>
         </li>
       </ul>
@@ -54,15 +61,16 @@
         </li>
         <li class="nav-item">
           <a class="nav-link sidesforth" href="{{route('Admin_studentcourse')}}">
-            <span class="textside"><i class="fa fa-user-plus" aria-hidden="true"></i> Student Course</span>
+            <span class="textside"><i class="fa fa-user-plus" aria-hidden="true"></i>Assign Student Course</span>
           </a>
         </li>
-         
         <li class="nav-item">
-          <a class="nav-link sidesix" href="{{route('admin_attendance')}}">
-            <span class="textside"><i class="fa fa-file-image-o" aria-hidden="true"></i> Attendance</span>
+          <a class="nav-link sidesforth" href="{{route('Admin_teachercourse')}}">
+            <span class="textside"><i class="fa fa-user-plus" aria-hidden="true"></i>Assign Teacher Course</span>
           </a>
         </li>
+        Admin_teachercourse
+        
       </ul>
       
     </div>
@@ -82,7 +90,11 @@
 
                 <div class="col-lg-10 col-sm-12 p-0">
          
-
+                  @if (session('status'))
+                      <div class="alert alert-success mt-5">
+                          {{ session('status') }}
+                      </div>
+                  @endif
 
 
 

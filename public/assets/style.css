@@ -12,7 +12,15 @@ body{
     background-color:#3dcb03;
 }
 
-
+.fa-trash-o{
+    color:red;
+}
+.fa-pencil-square-o{
+    color:green;
+}
+.fa-view{
+    color:blue;
+}
 
 .main_content input,
 .main_content select{
@@ -138,6 +146,44 @@ Section.adding_form .login-form-here button{
 }
 
 
+.progress.progress-line-primary {
+    background: rgba(156,39,176,.2);
+}
+
+.progress .progress-bar.progress-bar-primary {
+    background: #9c27b0!important;
+}
+
+.progress.progress-line-info {
+    background: rgba(0,188,212,.2);
+}
+
+.progress .progress-bar.progress-bar-info {
+    background: #00bcd4;
+}
+
+.progress.progress-line-danger {
+    background: rgba(244,67,54,.2);
+}
+
+.progress .progress-bar.progress-bar-danger {
+    background: #f44336;
+}
+
+.progress.progress-line-success {
+    background: rgba(76,175,80,.2);
+}
+
+.progress .progress-bar.progress-bar-success {
+    background: #4caf50;
+}
+
+.progress.progress-line-warning {
+    background: rgba(255,152,0,.2);
+}
+.progress .progress-bar.progress-bar-warning {
+    background: #ff9800;
+}
 
 
 

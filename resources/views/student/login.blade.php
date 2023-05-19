@@ -18,25 +18,31 @@
             <div class="container">
                 <div class="row">
                     <div class="login-form-here">
-                        <form>
-                            <!-- Email input -->
-                            <div class="form-outline mb-4">
-                                <input type="email" id="form2code1" class="form-control" />
-                                <label class="form-label" for="form2code1">Email address</label>
-                            </div>
+                    <form class="for-shadow" action="{{ url('student/login') }}" method="POST">
+                        @csrf
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email Address" required/> 
+                        </div>
 
-                            <!-- Password input -->
-                            <div class="form-outline mb-4">
-                                <input type="password" id="formpassword" class="form-control" />
-                                <label class="form-label" for="formpassword">Password</label>
-                            </div>
-
-                            <!-- 2 column grid layout for inline styling -->
-                        
-
-                            <!-- Submit button -->
-                            <button type="button" class="btn btn-primary btn-block mb-4">Login</button>
-                        </form>
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Password" required/>
+                        </div>
+                        @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul style="margin-bottom:0px;">
+                                        @foreach ($errors->all() as $error)
+                                            <li style="list-style-type: none;">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block mb-4">Login</button>
+                    </form>
                     </div>
                     
                 </div>

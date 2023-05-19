@@ -19,9 +19,12 @@
                   <img src="../assets/img/courses.png">
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
-                    <a href="{{route('teachertotalCourse')}}" class="for-color">
-                      <h4>Total Courses</h4>
-                      <h2>10</h2>
+                    <a href="{{route('teacher_allcourses')}}" class="for-color">
+                      <h4>All Courses</h4>
+                      <h2><?php 
+                        $count = DB::table('teachs')->where('TeacherID',Auth::id())->count();
+                        echo $count;
+                        ?></h2>
                     </a>
                 </div>
               </div>
@@ -37,7 +40,16 @@
                 <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
                   <a href="#" class="for-color">
                       <h4>Total Registered Students</h4>
-                      <h2>15</h2>
+                      <h2><?php 
+                        $getteacher_courses = DB::table('teachs')->where('TeacherID', Auth::id())->get();
+
+                        $courseCodes = $getteacher_courses->pluck('CourseCode');
+                        
+                        $count = DB::table('studentcourses')->whereIn('CourseCode', $courseCodes)->count();
+                        
+                        echo $count;
+                        
+                        ?></h2>
                   </a>    
                 </div>
               </div>

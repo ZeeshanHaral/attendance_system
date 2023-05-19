@@ -18,19 +18,29 @@
             <div class="container">
                 <div class="row">
                     <div class="login-form-here">
-                        <form action="dashboard.php">
+                        <form class="for-shadow" action="{{ url('admin/login') }}" method="POST">
+                            @csrf
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input type="email" id="form2code1" class="form-control" placeholder="Email Address" required/> 
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control" placeholder="Email Address" required/> 
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-4">
-                                <input type="password" id="formpassword" class="form-control" placeholder="Password" required/>
-                            </div>
+                                <label>Password</label>
+                                <input type="password" name="password" class="form-control" placeholder="Password" required/>
 
-                            <!-- 2 column grid layout for inline styling -->
-                        
+                            </div>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul style="margin-bottom:0px;">
+                                        @foreach ($errors->all() as $error)
+                                            <li style="list-style-type: none;">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
                             <!-- Submit button -->
                             <button type="submit" class="btn btn-primary btn-block mb-4">Login</button>

@@ -10,62 +10,27 @@
       <div class="row">
 
       <!-- Course Cards-->
-
+      @foreach($assign_courses as $courses)
         <div class="col-lg-3 col-md-4 col-sm-4 col-12 mb-2 mt-4">
             <div class="infocourse">
-                <a href="{{route('teachersingleCourses')}}" class="for-color">
-                    <h5>Course Name (CS201)</h5>
+
+                <?php  
+
+                    $teacherID = Auth::id();
+                    $courseCode = $courses->CourseCode;
+
+                
+                ?>    
+
+
+
+                <a href="{{route('teachersingleCourses', ['id' => $courseCode])}}" class="for-color">
+                    <h5>{{$courses->CourseCode}}</h5>
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-4 col-12 mb-2 mt-4">
-            <div class="infocourse">
-                <a href="single_course.php" class="for-color">
-                    <h5>Course Name (CS201)</h5>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-4 col-12 mb-2 mt-4">
-            <div class="infocourse">
-                <a href="single_course.php" class="for-color">
-                    <h5>Course Name (CS201)</h5>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-4 col-12 mb-2 mt-4">
-            <div class="infocourse">
-                <a href="single_course.php" class="for-color">
-                    <h5>Course Name (CS201)</h5>
-                </a>
-            </div>
-        </div>
-
-
-        <div class="col-lg-3 col-md-4 col-sm-4 col-12 mb-2 mt-4">
-            <div class="infocourse">
-                <a href="#" class="for-color">
-                    <h5>Course Name (CS201)</h5>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-4 col-12 mb-2 mt-4">
-            <div class="infocourse">
-                <a href="#" class="for-color">
-                    <h5>Course Name (CS201)</h5>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-4 col-12 mb-2 mt-4">
-            <div class="infocourse">
-                <a href="#" class="for-color">
-                    <h5>Course Name (CS201)</h5>
-                </a>
-            </div>
-        </div>
+     @endforeach
+    
 
     </div>
 </div>
