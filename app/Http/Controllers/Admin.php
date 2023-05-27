@@ -232,15 +232,27 @@ class Admin extends Controller
         
         $studentCourseID = $id;
      
-        $deleteRecord = DB::table('students')->where('StudentID', $studentCourseID)->delete();
-
-        if($deleteRecord){
-            // Redirect or return a response
-            return redirect()->back()->with('status', 'Student Courses record deleted successfully!');
-        }else{
-            // Redirect or return a response
-            return redirect()->back()->with('status', 'Cannot delete');
+        try {
+            $deleteRecord = DB::table('students')->where('StudentID', $studentCourseID)->delete();
+        
+            if ($deleteRecord) {
+                // Redirect or return a response
+                return redirect()->back()->with('status', 'Student Courses record deleted successfully!');
+            } else {
+                // Redirect or return a response
+                return redirect()->back()->with('status', 'Cannot delete');
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Check if the error is due to a foreign key constraint violation
+            if ($e->getCode() === '23000') {
+                // Redirect or return a response with the appropriate alert message
+                return redirect()->back()->with('error', 'Please delete the related data first.');
+            } else {
+                // Redirect or return a response with a general error message
+                return redirect()->back()->with('error', 'An error occurred while deleting the student courses record.');
+            }
         }
+        
         
     }
 
@@ -431,15 +443,27 @@ public function destroyTeacherCour($id)
     
     $teacherCourseID = $id;
  
-    $deleteRecord = DB::table('teachs')->where('ID', $teacherCourseID)->delete();
-
-    if($deleteRecord){
-        // Redirect or return a response
-        return redirect()->back()->with('status', 'Teacher Assigned Courses record deleted successfully!');
-    }else{
-        // Redirect or return a response
-        return redirect()->back()->with('status', 'Teacher Assigned Courses record Cannot be deleted');
+    try {
+        $deleteRecord = DB::table('teachs')->where('ID', $teacherCourseID)->delete();
+    
+        if ($deleteRecord) {
+            // Redirect or return a response
+            return redirect()->back()->with('status', 'Teacher Assigned Courses record deleted successfully!');
+        } else {
+            // Redirect or return a response
+            return redirect()->back()->with('status', 'Teacher Assigned Courses record cannot be deleted');
+        }
+    } catch (\Illuminate\Database\QueryException $e) {
+        // Check if the error is due to a foreign key constraint violation
+        if ($e->getCode() === '23000') {
+            // Redirect or return a response with the appropriate alert message
+            return redirect()->back()->with('error', 'Please delete the related data first.');
+        } else {
+            // Redirect or return a response with a general error message
+            return redirect()->back()->with('error', 'An error occurred while deleting the Teacher Assigned Courses record.');
+        }
     }
+    
     
 }
 
@@ -453,16 +477,29 @@ public function destroyTeacherCourse($id)
 {
    
     $teacherCourseID = $id;
- 
-    $deleteRecord = DB::table('teachers')->where('teacherID', $teacherCourseID)->delete();
 
-    if($deleteRecord){
+    try {
+        $deleteRecord = DB::table('teachers')->where('teacherID', $teacherCourseID)->delete();
+    
+        if ($deleteRecord) {
+            // Redirect or return a response
+            return redirect()->back()->with('status', 'Teacher record deleted successfully!');
+        } else {
+            // Redirect or return a response
+            return redirect()->back()->with('status', 'Teacher record cannot be deleted');
+        }
+    } catch (\Illuminate\Database\QueryException $e) {
+        $errorMessage = 'Cannot delete';
+    
+        // Check if the error is due to a foreign key constraint violation
+        if (DB::getDriverName() === 'mysql' && $e->getCode() === '23000') {
+            $errorMessage = 'Please delete the foreign key related data first';
+        }
+    
         // Redirect or return a response
-        return redirect()->back()->with('status', 'Teacher record deleted successfully!');
-    }else{
-        // Redirect or return a response
-        return redirect()->back()->with('status', 'Teacher record Cannot be deleted');
+        return redirect()->back()->with('status', $errorMessage);
     }
+    
     
 }
 
@@ -504,22 +541,33 @@ public function update_stcourse(Request $request)
 
 
 
-    public function destroyStudentCourse($id)
-    {
-       
-        $studentCourseID = $id;
-     
+public function destroyStudentCourse($id)
+{
+    $studentCourseID = $id;
+
+    try {
         $deleteRecord = DB::table('studentcourses')->where('ID', $studentCourseID)->delete();
 
-        if($deleteRecord){
+        if ($deleteRecord) {
             // Redirect or return a response
             return redirect()->back()->with('status', 'Student Assigned Courses record deleted successfully!');
-        }else{
+        } else {
             // Redirect or return a response
             return redirect()->back()->with('status', 'Something Went Wrong!');
         }
-        
+    } catch (\Illuminate\Database\QueryException $e) {
+        $errorMessage = 'Something Went Wrong!';
+
+        // Check if the error is due to a foreign key constraint violation
+        if (DB::getDriverName() === 'mysql' && $e->getCode() === '23000') {
+            $errorMessage = 'Please delete the foreign key related data first';
+        }
+
+        // Redirect or return a response
+        return redirect()->back()->with('status', $errorMessage);
     }
+}
+
     public function attendence(Request $request)
     {
         $Status = $request->input('Status');

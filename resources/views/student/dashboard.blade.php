@@ -40,9 +40,9 @@ if (!in_array($courseCode, $courseCodes)) {
     $attendancePercentage = ($attendance / $totalLectures) * 100;
 
     // Check if the attendance percentage is less than 50%
-    if ($attendancePercentage < 50) {
+    if ($attendancePercentage < 60) {
       
-        echo "<div class='alert alert-danger'>Sorry: You are not allowed to sit in the exam due to low attendance. Your attendence percentage must be above 50%</div>";
+        echo "<div class='alert alert-danger'>Sorry: You are not allowed to sit in the exam due to low attendance. Your attendence percentage must be above 60%</div>";
       
       } else {
          
@@ -177,8 +177,8 @@ if (!in_array($courseCode, $courseCodes)) {
                       $presentPercentage = ($presentCountper / $totalCountper) * 100;
                       $absentPercentage = ($absentCountper / $totalCountper) * 100;
                   
-                      $presentPercentage = number_format($presentPercentage, 2);
-                      $absentPercentage = number_format($absentPercentage, 2);
+                      $presentPercentage = number_format($presentPercentage, 0); 
+                      $absentPercentage = number_format($absentPercentage, 0);
                   } else {
                       $presentPercentage = 0;
                       $absentPercentage = 0;

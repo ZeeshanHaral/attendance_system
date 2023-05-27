@@ -64,8 +64,8 @@
                                     $presentPercentage = ($presentCountper / $totalCountper) * 100;
                                     $absentPercentage = ($absentCountper / $totalCountper) * 100;
                                 
-                                    $presentPercentage = number_format($presentPercentage, 2);
-                                    $absentPercentage = number_format($absentPercentage, 2);
+                                    $presentPercentage = number_format($presentPercentage, 0);
+                                    $absentPercentage = number_format($absentPercentage, 0);
                                 
                                     echo $presentPercentage . '%';
                                 } else {
