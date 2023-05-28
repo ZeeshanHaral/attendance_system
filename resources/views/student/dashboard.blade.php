@@ -103,7 +103,7 @@ if (!in_array($courseCode, $courseCodes)) {
                        $totalCount = $absentCount + $presentCount;
                        
                        if ($totalCount != 0) {
-                           $presentPercentage = ($presentCount / $totalCount) * 100;
+                           $presentPercentage = round(($presentCount / $totalCount) * 100);
                        } else {
                            $presentPercentage = 0;
                        }
@@ -206,8 +206,8 @@ if (!in_array($courseCode, $courseCodes)) {
                 if ($presentPercentage == 0 && $absentPercentage == 0) {
                   echo "<p class='alert alert-warning mt-4 w-100'>Attendance has not been uploaded yet.</p>";
               }
-                elseif ($presentPercentage < 50) {
-                    echo "<p class='alert alert-danger mt-4'>In this Course, you will not be eligible to sit in the exam due to attendance being below 50%.</p>";
+                elseif ($presentPercentage < 60) {
+                    echo "<p class='alert alert-danger mt-4'>In this Course, you will not be eligible to sit in the exam due to attendance being below 60%.</p>";
                 } 
               ?>
                 </div>
